@@ -1,4 +1,4 @@
-import { Text, View} from 'react-native';
+import { Text, View, StyleSheet} from 'react-native';
 import { useState, useEffect } from 'react';
 import config from "../config/config.json";
 
@@ -10,7 +10,7 @@ function StockList() {
           .then(result => setProducts(result.data));
       }, []);
 
-    const list = products.map((product, index) => <Text key={index}>{ product.name }</Text>);
+    const list = products.map((product, index) => <Text style={styles.baseText} key={index}>{product.name} in stock: {product.stock}</Text>);
 
     return (
         <View>
@@ -28,3 +28,12 @@ export default function Stock() {
         </View>
       );
 }
+
+const styles = StyleSheet.create({
+    
+    baseText: {
+      fontFamily:"Verdana",
+      color:"black",
+      fontSize: 14,
+    }
+  });
