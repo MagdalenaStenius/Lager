@@ -1,34 +1,44 @@
 import { Text, View, StyleSheet} from 'react-native';
 import { useState, useEffect } from 'react';
 import config from "../config/config.json";
+import productModel from "../models/products";
+import { normal, header2 } from '../styles/typography';
 
-function StockList() {
-    const [products, setProducts] = useState([]);
-    useEffect(() => {
-        fetch(`${config.base_url}/products?api_key=${config.api_key}`)
-          .then(response => response.json())
-          .then(result => setProducts(result.data));
-      }, []);
+//hämtar och visar lagersaldot
+// skall uppdateras
 
-    const list = products.map((product, index) => <Text style={styles.baseText} key={index}>{product.name} in stock: {product.stock}</Text>);
+ function StockList({products, setProducts}) {
+   console.log(products)
+
+  useEffect(async () => {
+    setProducts(await productModel.getAllProducts());
+    }, []);
+
+    const list = products.map((product, index) => 
+    { return <Text
+              key={index}
+              style={normal} //Hämta hem och skriv style!
+              >
+       {product.name} in stock: {product.stock}</Text>;
+    });
 
     return (
         <View>
             {list}
         </View>
   );
-}
-
-export default function Stock() {
+};
+// style: color: '#333', fontSize: 24
+export default function Stock({products, setProducts}) {
 
     return (
         <View>
-            <Text style={{color: '#333', fontSize: 24}}>Lagerförteckning</Text>
-            <StockList/>
+            <Text style={header2}>Lagerförteckning</Text> 
+            <StockList products={products} setProducts={setProducts}/>
         </View>
       );
 }
-
+/*
 const styles = StyleSheet.create({
     
     baseText: {
@@ -36,4 +46,4 @@ const styles = StyleSheet.create({
       color:"black",
       fontSize: 14,
     }
-  });
+  }); */
