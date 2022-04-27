@@ -33,7 +33,7 @@ export default function App() {
     </Tab.Screen>
 
     <Tab.Screen name="Plock">
-      {()=> <Pick setProducts={setProducts}
+      {()=> <Pick products ={products} setProducts={setProducts}
       ></Pick>}
       </Tab.Screen>
       </Tab.Navigator>

@@ -15,8 +15,11 @@ const orders = {
 
         return result.data;
     },
+    
+    //anropas när knappen plocka order visas
     pickOrder: async function pickOrder(order:Partial<Order>) {
-        await Promise.all(order.order_items.map(async (order_item:
+        //console.log("strul",order.order_items)
+        await Promise.all(order.order_items.map(async (order_item: // här verkar felet
             Partial<OrderItem>) => {
                 let changedProduct = {
                     id: order_item.product_id,
@@ -25,11 +28,24 @@ const orders = {
                     api_key: config.api_key,
                 };
                 await products.upDateProduct(changedProduct);
+
             }));
     },
 
+    changeOrder: async function changOrder(order){
+            let newOrderStatus = {
+            id: order.id,
+            name: order.name,
+            api_key: config.api_key,
+            status_id: 200,
+            };
+            await orders.upDateOrder(newOrderStatus)     
+    },
 
     upDateOrder: async function upDateOrder(order:Partial<Order>) {
+        console.log("inne")
+        console.log(order)
+      
         try {
             await fetch(`${config.base_url}/orders?api_key=${config.api_key}`, {
                 body: JSON.stringify(order),
@@ -37,6 +53,9 @@ const orders = {
                     'content-type': 'application/json'
                 },
                 method: 'PUT'
+            })
+            .then(function(response){
+
             });
         } catch (error) {
         console.log("could not update order")
@@ -44,15 +63,6 @@ const orders = {
         
     },
 };
-
-
-
-
-        // TODO: Minska lagersaldo för de
-        // orderrader som finns i ordern
-
-        // TODO: Ändra status för ordern till packad
-
 
 
 export default orders;

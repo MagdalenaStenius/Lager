@@ -8,12 +8,12 @@ import { normal, header2 } from '../styles/typography';
 // skall uppdateras
 
  function StockList({products, setProducts}) {
-   console.log(products)
+  //console.log(products)
 
   useEffect(async () => {
     setProducts(await productModel.getAllProducts());
     }, []);
-
+    //console.log("Object?", products)
     const list = products.map((product, index) => 
     { return <Text
               key={index}
