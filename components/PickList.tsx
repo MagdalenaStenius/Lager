@@ -33,10 +33,6 @@ export default function PickList({ route, navigation, setProducts }) {
 
     
     function checkStock(order){
-        
-        console.log("ordern:", order.order_items[0].amount)
-        console.log("lagret:", order.order_items[0].stock)
-        console.log("ordern:",order.order_items)
         const checkStock = order.order_items.map((item) => {
             if (item.stock >= item.amount) {
                 return true

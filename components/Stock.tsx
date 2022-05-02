@@ -28,7 +28,7 @@ import { normal, header2,baseText } from '../styles/typography';
         </View>
   );
 };
-// style: color: '#333', fontSize: 24
+
 export default function Stock({products, setProducts}) {
 
     return (
