@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, Pressable } from "react-native";
 import orderModel from "../models/orders";
 import products from "../models/products";
 import productModel from "../models/products";
-import OrderList from "./OrderList";
+//import OrderList from "./OrderList";
+import { listDetails,outOfStock,baseText } from '../styles/typography';
+import { baseDetails } from '../styles/base';
+import { styles } from '../styles/button';
 
 //Hämtar och visar order och order_items
 
@@ -11,10 +14,8 @@ import OrderList from "./OrderList";
 export default function PickList({ route, navigation, setProducts }) {
     const { order } = route.params;
     const [productsList, setProductsList] = useState([])
-    
 
-    
-    
+
     useEffect(async () => {
     setProductsList(await productModel.getAllProducts());
     }, []);
@@ -50,35 +51,42 @@ export default function PickList({ route, navigation, setProducts }) {
 
 // visar antal produkter i orden och var det finns i lagret. 
     const orderItemsList = order.order_items.map((item, index) => {
-        return <Text
+        return <Text style={listDetails}
                 key={index}
                 >
-                    {item.name} - {item.amount} - {item.location}
+                    {item.name} - amount:{item.amount} - shelf:{item.location}
             </Text>;
     });
 
     function pressButton (route,navigation){
-        //console.log(order)
-        //console.log(checkStock(order))
+        const title = 'Pick order';
         if(checkStock(order)==true){
-            return <Button title="Plocka order" onPress={pick} />
+            return (
+                <Pressable style={styles.button} onPress={pick}>
+                  <Text style={styles.text}>{title}</Text>
+                </Pressable>
+              );
+
+            //return <Button title="Plocka order" onPress={pick} />
         }else{
-            return <Text> Out of stock</Text>
+            return <Text style ={outOfStock}> Out of stock!</Text>
         }
     };
 
     
 
     return (
-        <View>
-            <Text>{order.name}</Text>
-            <Text>{order.address}</Text>
-            <Text>{order.zip} {order.city}</Text>
+        <View style = {baseDetails}>
+            <Text style ={baseText}>{`
+            ${order.name}
+            ${order.address}
+            ${order.zip}
+            ${order.city}
 
-            <Text>Produkter:</Text>
+            Produkter:`}</Text>
 
             {orderItemsList}
-            {pressButton(route,navigation,)}
+            {pressButton(route,navigation)}
             
         </View>
     )

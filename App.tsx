@@ -23,8 +23,8 @@ export default function App() {
 
       return <Ionicons name={iconName} size={size} color={color} />;
     },
-    tabBarActiveTintColor: 'blue',
-    tabBarInactiveTintColor: 'gray',
+    tabBarActiveTintColor: 'limegreen',
+    tabBarInactiveTintColor: 'darkolivegreen',
   })}
 >
     <Tab.Screen name="Lager"> 

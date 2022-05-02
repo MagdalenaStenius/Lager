@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { View, Text, Button,StyleSheet } from "react-native";
 import config from "./../config/config.json";
 import orderModel from "../models/orders";
-import { header2,font1 } from '../styles/typography';
+import { header2,font1,header3,button } from '../styles/typography';
 import { base } from '../styles/base';
 
 // hämtar och skriv ut alla ordrar som går att packas märkta "new"
@@ -28,6 +28,7 @@ export default function OrderList({ route, navigation }) {
             return <Button
                 title={order.name}
                 key={index}
+                color = "green"
                 onPress={() => {
                     navigation.navigate('Details', {
                         order: order
@@ -38,7 +39,7 @@ export default function OrderList({ route, navigation }) {
 
     return (
         <View>
-            <Text style={styles.header}>  Ordrar redo att plockas</Text>
+            <Text style={styles.header}>  Ordrar redo att plockas:</Text>
             {listOfOrders}
         </View>
     );
@@ -46,6 +47,7 @@ export default function OrderList({ route, navigation }) {
 }
 const styles = StyleSheet.create({
     base: base,
-    header: header2,
+    header: header3,
     font: font1,
+    button: button,
 });

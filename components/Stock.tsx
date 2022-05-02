@@ -1,8 +1,8 @@
-import { Text, View, StyleSheet} from 'react-native';
+import { Text, View,} from 'react-native';
 import { useState, useEffect } from 'react';
 import config from "../config/config.json";
 import productModel from "../models/products";
-import { normal, header2 } from '../styles/typography';
+import { normal, header2,baseText } from '../styles/typography';
 
 //hämtar och visar lagersaldot
 // skall uppdateras
@@ -17,7 +17,7 @@ import { normal, header2 } from '../styles/typography';
     const list = products.map((product, index) => 
     { return <Text
               key={index}
-              style={normal} //Hämta hem och skriv style!
+              style={baseText}
               >
        {product.name} in stock: {product.stock}</Text>;
     });
@@ -33,17 +33,8 @@ export default function Stock({products, setProducts}) {
 
     return (
         <View>
-            <Text style={header2}>Lagerförteckning</Text> 
+            <Text style={header2}>Lagerförteckning:</Text> 
             <StockList products={products} setProducts={setProducts}/>
         </View>
       );
 }
-/*
-const styles = StyleSheet.create({
-    
-    baseText: {
-      fontFamily:"Verdana",
-      color:"black",
-      fontSize: 14,
-    }
-  }); */
